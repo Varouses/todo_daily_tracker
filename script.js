@@ -3,13 +3,18 @@ document.addEventListener('DOMContentLoaded', () => {
 
     async function sendTaskToBot(taskText, taskTime) {
         const botToken = "7838203442:AAG6xvqqZaxn9cvRrPlhWn33lduMS1z-qtY"; // Укажите токен вашего бота
-        const tg = window.Telegram.WebApp; // Инициализация WebApp
+        const tg = window.Telegram.WebApp; // Telegram WebApp API
         const chatId = tg.initDataUnsafe.user.id; // ID пользователя Telegram
         const apiUrl = `https://api.telegram.org/bot${botToken}/sendMessage`;
 
         const message = `/add_task "${taskText}" "${taskTime}"`;
 
         try {
+            console.log("Отправляем запрос:");
+            console.log("API URL:", apiUrl);
+            console.log("Chat ID:", chatId);
+            console.log("Message:", message);
+
             const response = await fetch(apiUrl, {
                 method: "POST",
                 headers: {
@@ -22,7 +27,10 @@ document.addEventListener('DOMContentLoaded', () => {
             });
 
             if (!response.ok) {
-                throw new Error("Не удалось отправить задачу боту.");
+                const errorDetails = await response.json();
+                throw new Error(
+                    `Ошибка при отправке данных боту: ${errorDetails.description}`
+                );
             }
 
             console.log("Задача успешно отправлена боту.");
@@ -41,7 +49,7 @@ document.addEventListener('DOMContentLoaded', () => {
             // Отправляем задачу боту
             await sendTaskToBot(taskText, taskNotifyTime);
 
-            // Локально сохраняем задачу
+            // Локально сохраняем задачу (если нужно)
             tasks.push({ text: taskText, time: taskNotifyTime, done: false });
             taskInput.value = "";
             taskTime.value = "";
@@ -85,7 +93,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
     renderTasks();
 
-    // Экспорт функций в глобальную область видимости
     window.addTask = addTask;
     window.toggleTask = toggleTask;
     window.deleteTask = deleteTask;
