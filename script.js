@@ -2,7 +2,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const tasks = JSON.parse(localStorage.getItem('tasks')) || [];
 
     async function sendTaskToBot(taskText, taskTime) {
-        const botToken = "ВАШ_ТОКЕН"; // Укажите токен вашего бота
+        const botToken = "7838203442:AAG6xvqqZaxn9cvRrPlhWn33lduMS1z-qtY"; // Укажите токен вашего бота
         const tg = window.Telegram.WebApp; // Инициализация WebApp
         const chatId = tg.initDataUnsafe.user.id; // ID пользователя Telegram
         const apiUrl = `https://api.telegram.org/bot${botToken}/sendMessage`;
