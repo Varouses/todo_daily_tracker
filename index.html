@@ -1,100 +1,60 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>ToDo Tracker</title>
-  <script src="https://telegram.org/js/telegram-web-app.js"></script>
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      margin: 20px;
-      text-align: center;
-    }
-    h1 {
-      color: #333;
-    }
-    #taskInput {
-      padding: 10px;
-      width: 70%;
-      margin-bottom: 10px;
-    }
-    button {
-      padding: 10px 20px;
-      background-color: #007bff;
-      color: white;
-      border: none;
-      border-radius: 5px;
-      cursor: pointer;
-    }
-    button:hover {
-      background-color: #0056b3;
-    }
-    ul {
-      list-style: none;
-      padding: 0;
-    }
-    li {
-      margin: 10px 0;
-      padding: 10px;
-      border: 1px solid #ccc;
-      border-radius: 5px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
-    .done {
-      text-decoration: line-through;
-      color: gray;
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ToDo Tracker</title>
+    <script src="https://telegram.org/js/telegram-web-app.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            text-align: center;
+        }
+        h1 {
+            color: #333;
+        }
+        #taskInput {
+            padding: 10px;
+            width: 70%;
+            margin-bottom: 10px;
+        }
+        button {
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        ul {
+            list-style: none;
+            padding: 0;
+        }
+        li {
+            margin: 10px 0;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .done {
+            text-decoration: line-through;
+            color: gray;
+        }
+    </style>
 </head>
 <body>
-  <h1>ToDo Tracker</h1>
-  <input type="text" id="taskInput" placeholder="Введите задачу" />
-  <button onclick="addTask()">Добавить задачу</button>
-  <ul id="taskList"></ul>
+    <h1>ToDo Tracker</h1>
+    <input type="text" id="taskInput" placeholder="Введите задачу" />
+    <button onclick="addTask()">Добавить задачу</button>
+    <ul id="taskList"></ul>
 
-  <script>
-    const tasks = [];
-
-    function addTask() {
-      const taskInput = document.getElementById('taskInput');
-      const taskText = taskInput.value.trim();
-
-      if (taskText) {
-        tasks.push({ text: taskText, done: false });
-        taskInput.value = '';
-        renderTasks();
-      }
-    }
-
-    function toggleTask(index) {
-      tasks[index].done = !tasks[index].done;
-      renderTasks();
-    }
-
-    function deleteTask(index) {
-      tasks.splice(index, 1);
-      renderTasks();
-    }
-
-    function renderTasks() {
-      const taskList = document.getElementById('taskList');
-      taskList.innerHTML = tasks
-        .map(
-          (task, index) => `
-          <li class="${task.done ? 'done' : ''}">
-            ${task.text}
-            <span>
-              <button onclick="toggleTask(${index})">✔</button>
-              <button onclick="deleteTask(${index})">❌</button>
-            </span>
-          </li>
-        `
-        )
-        .join('');
-    }
-  </script>
+    <script src="script.js"></script>
 </body>
 </html>
