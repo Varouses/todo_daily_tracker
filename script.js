@@ -3,11 +3,14 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function addTask() {
         const taskInput = document.getElementById('taskInput');
+        const taskTime = document.getElementById('taskTime');
         const taskText = taskInput.value.trim();
+        const taskNotifyTime = taskTime.value;
 
         if (taskText) {
-            tasks.push({ text: taskText, done: false });
+            tasks.push({ text: taskText, time: taskNotifyTime, done: false });
             taskInput.value = '';
+            taskTime.value = '';
             saveTasks();
             renderTasks();
         }
@@ -35,7 +38,7 @@ document.addEventListener('DOMContentLoaded', () => {
             .map(
                 (task, index) => `
                 <li class="${task.done ? 'done' : ''}">
-                    ${task.text}
+                    ${task.text} <small>${task.time || ''}</small>
                     <span>
                         <button onclick="toggleTask(${index})">✔</button>
                         <button onclick="deleteTask(${index})">❌</button>
@@ -47,13 +50,6 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     renderTasks();
-
-    const tg = window.Telegram.WebApp;
-    tg.ready();
-    document.body.insertAdjacentHTML(
-        'afterbegin',
-        `<h2>Привет, ${tg.initDataUnsafe.user.first_name || 'пользователь'}!</h2>`
-    );
 
     window.addTask = addTask;
     window.toggleTask = toggleTask;
